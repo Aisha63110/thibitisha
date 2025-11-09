@@ -24,13 +24,17 @@ class DatabaseSeeder extends Seeder
        // ]);
        //disable the foreign key checks
        Schema::disableForeignKeyConstraints();
+       $this ->call([
+              RoleSeeder::class,
+       ]);
 
         // call them individual seeders in a specific order
-        $this->call([
-            RoleSeeder::class,
-           
+        $this ->call([
+            UserSeeder::class,
         ]);
+
         //re-enable
+        User::factory(200)->create();
         Schema::enableForeignKeyConstraints();
     }
 }

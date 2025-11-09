@@ -10,7 +10,14 @@ class Qualification extends Model
     /** @use HasFactory<\Database\Factories\QualificationFactory> */
     use HasFactory;
     protected $table = 'qualifications';
-    protected $fillable = [' ' ,' '];
+    protected $fillable = [
+        'practitioner_id',
+        'degree_id',
+        'institution_id',
+        'specialization',
+        'year_awarded',
+        'notes'
+    ];
     
 
     // a qualification belongs to an institution

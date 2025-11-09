@@ -10,7 +10,7 @@ class Degree extends Model
     /** @use HasFactory<\Database\Factories\DegreeFactory> */
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = ['name', 'abbrev', 'description'];
 
     // degree relationships
 

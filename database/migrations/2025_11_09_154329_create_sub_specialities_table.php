@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sub_specialities', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->unique(); // example field
-            $table->timestamps();
-        });
+       Schema::create('sub_specialities', function (Blueprint $table) {
+    $table->id();
+    $table->string('name')->unique();
+    $table->string('description')->nullable();
+    $table->foreignId('speciality_id')->constrained('specialities')->onDelete('cascade');
+    $table->timestamps();
+});
+
     }
 
     /**

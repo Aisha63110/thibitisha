@@ -9,7 +9,7 @@ class Institution extends Model
 {
     /** @use HasFactory<\Database\Factories\InstitutionFactory> */
     use HasFactory;
-
+    protected $fillable = ['name', 'abbrev'];
     // institution relationships
 
     // 1 institution has many qualifications

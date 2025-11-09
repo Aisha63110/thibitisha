@@ -11,18 +11,14 @@ use App\Http\Controllers\SubSpecialitiesController;
 use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\QualificationController;
 use App\Http\Controllers\SettingsController;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
-// Default Laravel welcome page (root URL)
-Route::get('/', function () {
-    return view('welcome');
-});
-
+// Root URL → Home page
 Route::get('/', function () {
     return view('pages.home');
 });
 
+// Static pages
 Route::get('/about', function () {
     return view('pages.about');
 });
@@ -31,18 +27,18 @@ Route::get('/verify', function () {
     return view('pages.verify');
 });
 
+// Admin dashboard
 Route::get('/mkubwa', function () {
     return view('admin.dashboard');
 });
 
-//Method,name, action
-//Route::get('roles',[RoleController::class,'index'])-> name('roles.index');
-// resource routes
+// Resource routes
 Route::resource('roles', RoleController::class);
-// index (listing all roles), showing the create form, saving the form 
-//showing the edit form, saving the form
-//deleting a record
 Route::resource('users', UserController::class);
+
+// Reset a user's password (admin panel)
+Route::put('users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset_password');
+
 Route::resource('practitioners', PractitionersController::class);
 Route::resource('contacts', ContactController::class);
 Route::resource('qualifications', QualificationController::class);

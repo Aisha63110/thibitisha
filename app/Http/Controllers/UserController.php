@@ -15,8 +15,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        
-        $users = \App\Models\User::orderBy('id','desc')->paginate(env('PAGINATION_COUNT', 10));
+        // Paginate users (default 10 per page, configurable via .env)
+        $users = User::with('role')->orderBy('id', 'desc')->paginate(env('PAGINATION_COUNT', 10));
         return view('users.index', compact('users'));
     }
 
@@ -25,8 +25,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        // for the dropmenu for selcting the role
-        $roles = \App\Models\Role::all();
+        $roles = Role::all();
         return view('users.create', compact('roles'));
     }
 
@@ -42,15 +41,7 @@ class UserController extends Controller
         $user->password = Hash::make(env('USER_DEFAULT_PASSWORD', 'thibit1sha'));
         $user->save();
 
-        return redirect()->route('users.index')->with('success', 'User Added successfully.');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        return redirect()->route('users.index')->with('success', 'User added successfully.');
     }
 
     /**
@@ -58,7 +49,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $roles = \App\Models\Role::all();
+        $roles = Role::all();
         return view('users.edit', compact('user', 'roles'));
     }
 
@@ -70,8 +61,9 @@ class UserController extends Controller
         $user->name = $request->get('name');
         $user->email = $request->get('email');
         $user->role_id = $request->get('role');
-        //we are not updating the pasword
+        // We are not updating the password here
         $user->save();
+
         return redirect()->route('users.index')->with('success', 'User updated successfully.');
     }
 
@@ -79,9 +71,19 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(User $user)
-
     {
         $user->delete();
         return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+    }
+
+    /**
+     * Reset a user's password to the default.
+     */
+    public function resetPassword(User $user)
+    {
+        $user->password = Hash::make(env('USER_DEFAULT_PASSWORD', 'thibit1sha'));
+        $user->save();
+        //@TODO : Notifications(email,sms)
+        return redirect()->route('users.index')->with('success', 'User password reset successfully.');
     }
 }

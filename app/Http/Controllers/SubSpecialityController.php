@@ -11,7 +11,8 @@ class SubSpecialityController extends Controller
      */
     public function index()
     {
-        //
+        // the index view in subspecialities
+        return view('subspecialities.index');
     }
 
     /**

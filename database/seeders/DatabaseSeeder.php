@@ -32,6 +32,13 @@ class DatabaseSeeder extends Seeder
         $this ->call([
             UserSeeder::class,
         ]);
+        $this ->call([
+            SpecialitiesSeeder::class,
+        ]);
+
+        $this ->call([
+            SubSpecialitiesSeeder::class,
+        ]);
 
         //re-enable
         User::factory(200)->create();

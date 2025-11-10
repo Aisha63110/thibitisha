@@ -10,6 +10,7 @@
         "akaunting/laravel-sortable": "^1.0",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
+        "livewire/livewire": "^3.6",
         "thibitisha/kmpdc-seeder": "^0.0.47-alpha"
     },
     "require-dev": {

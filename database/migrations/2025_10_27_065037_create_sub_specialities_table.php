@@ -6,21 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('sub_specialities', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->unique(); // example field
-            $table->timestamps();
-        });
+           $table->id();
+           $table->string('name');
+           $table->string('description')->nullable(); // if you want descriptions
+           $table->foreignId('speciality_id')->constrained()->onDelete('cascade');
+           $table->timestamps();
+           $table->unique(['name', 'speciality_id']);
+      }  );
+
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('sub_specialities');

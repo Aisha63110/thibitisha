@@ -4,8 +4,72 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b409a63944de158b7794f0b0baa4c939",
+    "content-hash": "ef1eb24a5e33e2fa264ea95df4c51e01",
     "packages": [
+        {
+            "name": "akaunting/laravel-sortable",
+            "version": "1.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/akaunting/laravel-sortable.git",
+                "reference": "3102d2c53bc9ef89b697331a7a1c8d8463738f22"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/akaunting/laravel-sortable/zipball/3102d2c53bc9ef89b697331a7a1c8d8463738f22",
+                "reference": "3102d2c53bc9ef89b697331a7a1c8d8463738f22",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=6.0",
+                "php": ">=7.3"
+            },
+            "require-dev": {
+                "orchestra/testbench": ">=6.0",
+                "phpunit/phpunit": ">=9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Akaunting\\Sortable\\Provider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Akaunting\\Sortable\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Denis Duliçi",
+                    "email": "info@akaunting.com",
+                    "homepage": "https://akaunting.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Sortable behavior package for Laravel",
+            "keywords": [
+                "blade",
+                "column",
+                "laravel",
+                "model",
+                "sort",
+                "sortable",
+                "sorting",
+                "view"
+            ],
+            "support": {
+                "issues": "https://github.com/akaunting/laravel-sortable/issues",
+                "source": "https://github.com/akaunting/laravel-sortable/tree/1.0.6"
+            },
+            "time": "2022-09-23T10:54:50+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.14.0",

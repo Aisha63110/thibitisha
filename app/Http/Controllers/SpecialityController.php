@@ -6,6 +6,7 @@ use GuzzleHttp\Psr7\Query;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\QueryException;
+use App\Rules\AlphaSpaces;
 
 class SpecialityController extends Controller
 {
@@ -13,10 +14,28 @@ class SpecialityController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $specialities = \App\Models\Speciality::query()->sortable()->paginate(env('PAGINATION_COUNT', 10));
+{
+    $search = trim(request('search'));
+
+    if (request()->has('search')) {
+        request()->validate([
+            'search' => [new AlphaSpaces()],
+        ]);
+
+        $specialities = \App\Models\Speciality::where('name', 'LIKE', "%{$search}%")
+            ->sortable()
+            ->paginate(env('PAGINATION_COUNT', 10)); // Add pagination here too
+
         return view('specialities.index', compact('specialities'));
     }
+
+    $specialities = \App\Models\Speciality::query()
+        ->sortable()
+        ->paginate(env('PAGINATION_COUNT', 10));
+
+    return view('specialities.index', compact('specialities'));
+}
+
 
     /**
      * Show the form for creating a new resource.

@@ -25,6 +25,29 @@
                 <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
                 <li class="nav-item"><a class="nav-link" href="/verify">Verification</a></li>
                 <li class="nav-item"><a class="nav-link" href="/mkubwa">Admin Panel</a></li>
+
+                @auth
+                <!-- User dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ Auth::user()->name }}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li><a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <!-- ✅ Correct logout form -->
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="dropdown-item text-danger">
+                                    <i class="bi bi-box-arrow-right"></i> Sign Out
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+                @endauth
             </ul>
         </div>
     </nav>

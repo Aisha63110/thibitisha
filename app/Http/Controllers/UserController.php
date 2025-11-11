@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Role;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -50,7 +51,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $roles = Role::all();
-        return view('users.edit', compact('user', 'roles'));
+        return view('users.edit', compact('user', '/mkubwa', 'roles'));
     }
 
     /**
@@ -86,4 +87,49 @@ class UserController extends Controller
         //@TODO : Notifications(email,sms)
         return redirect()->route('users.index')->with('success', 'User password reset successfully.');
     }
+    public function login()
+    {
+        return view('auth.login');
+    }
+    public function authenticate(Request $request)
+{
+    // validate the form
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required'
+    ]);
+
+    $credentials = $request->only('email', 'password');
+
+    if (Auth::attempt($credentials)) {
+        // regenerate session to prevent fixation
+        $request->session()->regenerate();
+
+        // ✅ go to dashboard
+        return redirect()->intended('/mkubwa');
+    }
+
+    // Authentication failed
+    return redirect()->back()
+        ->withErrors(['email' => 'Invalid credentials provided.'])
+        ->withInput();
 }
+
+    public function logout(Request $request)
+{
+    Auth::logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    // Redirect to landing page
+    return redirect('login');
+}
+
+
+}
+
+    
+
+    
+
+

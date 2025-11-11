@@ -9,10 +9,5 @@
 @endsection
 
 @section('content')
-    <div class="card">
-        <div class="card-body">
-            <p>Welcome to the Admin Panel. This section is under development.</p>
-        </div>
-    </div>
+    {{-- Backend modules will be added here --}}
 @endsection
-

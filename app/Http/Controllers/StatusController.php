@@ -4,16 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorestatusesRequest;
 use App\Http\Requests\UpdatestatusesRequest;
+use App\Models\Status;
 use App\Models\statuses;
 
-class StatusesController extends Controller
+class StatusController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return view('statuses.index');
     }
 
     /**
@@ -35,7 +36,7 @@ class StatusesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(statuses $statuses)
+    public function show(Status $status)
     {
         //
     }
@@ -43,7 +44,7 @@ class StatusesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(statuses $statuses)
+    public function edit(Status $status)
     {
         //
     }
@@ -51,7 +52,7 @@ class StatusesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatestatusesRequest $request, statuses $statuses)
+    public function update(UpdatestatusesRequest $request, Status $status)
     {
         //
     }
@@ -59,7 +60,7 @@ class StatusesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(statuses $statuses)
+    public function destroy(Status $status)
     {
         //
     }

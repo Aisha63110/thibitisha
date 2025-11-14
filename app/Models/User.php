@@ -54,5 +54,13 @@ class User extends Authenticatable
     {
         return $this->belongsTo(\App\Models\Role::class);
     }
+    public function isAdmin(): bool
+    {
+        return $this->role && $this->role->name === 'admin';
+    }
+    public function isStaff(): bool
+    {
+        return $this->role && $this->role->name === 'staff';
+    }
 }
 

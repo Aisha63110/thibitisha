@@ -49,6 +49,7 @@
             <p>Roles</p>
           </a>
         </li>
+        
        
         {{-- Users --}}
         <li class="nav-item">
@@ -57,6 +58,7 @@
             <p>Users</p>
           </a>
         </li>
+        
 
         {{-- Practitioner Management Section --}}
         <li class="nav-header">Practitioner Management</li>

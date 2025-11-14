@@ -56,7 +56,6 @@
                        title="Edit">
                       <i class="bi bi-pencil"></i>
                     </a>
-                   
                     <form action="#"
                           method="POST"
                           class="d-inline"

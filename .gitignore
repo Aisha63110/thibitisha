@@ -23,3 +23,4 @@ Homestead.json
 Homestead.yaml
 Thumbs.db
 *zone.identifier* 
+/storage/debugbar/*

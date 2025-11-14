@@ -1,0 +1,12 @@
+[90m= [39m[34;4mApp\Models\User[39;24m {#6810
+    [34mid[39m: [35m348[39m,
+    [34mrole_id[39m: [35m1[39m,
+    [34mname[39m: "[32mVerner Quigley[39m",
+    [34memail[39m: "[32mryan.anastacio@example.com[39m",
+    [34memail_verified_at[39m: [36mnull[39m,
+    #[33mpassword[39m: "[32m$2y$12$K3.0rc/nPbcBY.GxpD2gNuaHIXbbXJ25rYlQujkoSrvZJ9lD.Kr9y[39m",
+    #[33mremember_token[39m: "[32mDsMhGwWd7Cui8pHqHJm1DvdHkcDKTVomTqMVMQlBWGH09hDZTFM37h4pRhqd[39m",
+    [34mcreated_at[39m: "[32m2025-11-10 07:27:49[39m",
+    [34mupdated_at[39m: "[32m2025-11-14 06:33:31[39m",
+  }
+

@@ -122,7 +122,7 @@ class UserController extends Controller
     $request->session()->regenerateToken();
 
     // Redirect to landing page
-    return redirect('login');
+    return redirect('/');
 }
 
 

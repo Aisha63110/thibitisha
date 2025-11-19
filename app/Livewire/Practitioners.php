@@ -9,6 +9,7 @@ use App\Models\Status;
 use App\Models\Speciality;
 use App\Models\SubSpeciality;
 use App\Models\Degree;
+use App\Models\Institution;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
 
@@ -40,7 +41,7 @@ public function render()
     $statuses = Status::all();
     $specialities = Speciality::all();
     $degrees = Degree::all();
-    $degrees = degree::all();
+    $institutions = Institution::all();
 
      $practitioners = Practitioner::query()
     ->where('full_name', 'like', $searchString)
@@ -189,7 +190,20 @@ public function updatedSpecialityId()
     $this->subSpecialities = SubSpeciality::where('speciality_id', $this->specialityId)->get();
     $this->subSpecialityId = null; // Reset sub-speciality selection
 }
+public function addQualification()
+{
+    $this->qualifications_array[] = [
+        'degree_id' => '',
+        'institution_id' => '',
+        'year_awarded' => '',
+    ];
+}
 
+public function removeQualification($index)
+{
+    unset($this->qualifications_array[$index]);
+    $this->qualifications_array = array_values($this->qualifications_array);
+}
 
 }
 

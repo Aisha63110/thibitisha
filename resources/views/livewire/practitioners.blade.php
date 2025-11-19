@@ -153,6 +153,67 @@
         </select>
     </div>
 @endif
+{{-- Academic qualifications --}}
+<div class="mb-3">
+    <label class="form-label">Academic Qualifications</label>
+    
+    @foreach ($qualifications_array as $index => $qualification)
+        <div class="card mb-2" wire:key="qualification-{{ $index }}">
+            <div class="card-body">
+                
+                <!-- Degree -->
+                <div class="mb-2">
+                    <label class="form-label">Degree</label>
+                    <select class="form-select" 
+                            wire:model="qualifications_array.{{ $index }}.degree_id">
+                        <option value="">Select Degree</option>
+                        @foreach ($degrees as $degree)
+                            <option value="{{ $degree->id }}">{{ $degree->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Institution -->
+                <div class="mb-2">
+                    <label class="form-label">Institution</label>
+                    <select class="form-select" 
+                            wire:model="qualifications_array.{{ $index }}.institution_id">
+                        <option value="">Select Institution</option>
+                        @foreach ($institutions as $institution)
+                            <option value="{{ $institution->id }}">
+                                {{ $institution->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Year Awarded -->
+                <div class="mb-2">
+                    <label class="form-label">Year Awarded</label>
+                    <input type="number" 
+                           min="1900" 
+                           max="{{ date('Y') }}" 
+                           class="form-control" 
+                           wire:model="qualifications_array.{{ $index }}.year_awarded"
+                           placeholder="Enter year">
+                </div>
+
+                <!-- Remove Button -->
+                <button type="button" 
+                        class="btn btn-danger btn-sm" 
+                        wire:click="removeQualification({{ $index }})">
+                    Remove
+                </button>
+            </div>
+        </div>
+    @endforeach
+
+    <button type="button" 
+            class="btn btn-success btn-sm" 
+            wire:click="addQualification">
+        Add Qualification
+    </button>
+</div>
 
                 <!-- Action Buttons -->
                 <div class="d-flex gap-2">

@@ -2,65 +2,49 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Degree;
 use App\Http\Requests\StoreDegreeRequest;
 use App\Http\Requests\UpdateDegreeRequest;
-use App\Models\Degree;
+
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class DegreeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    use AuthorizesRequests;
     public function index()
     {
-        //
+        $degrees = Degree::all();
+        return view('degrees.index', compact('degrees'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $this->authorize('create', Degree::class);
+        return view('degrees.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreDegreeRequest $request)
     {
-        //
+        Degree::create($request->validated());
+        return redirect()->route('degrees.index')->with('success', 'Degree added successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Degree $degree)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Degree $degree)
     {
-        //
+        $this->authorize('update', $degree);
+        return view('degrees.edit', compact('degree'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateDegreeRequest $request, Degree $degree)
     {
-        //
+        $degree->update($request->validated());
+        return redirect()->route('degrees.index')->with('success', 'Degree updated successfully!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Degree $degree)
     {
-        //
+        $this->authorize('delete', $degree);
+        $degree->delete();
+        return redirect()->route('degrees.index')->with('success', 'Degree deleted successfully!');
     }
 }

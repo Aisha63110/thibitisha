@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorepractitionersRequest;
 use App\Http\Requests\UpdatepractitionersRequest;
+use App\Livewire\Practitioners as LivewirePractitioners;
 use App\Models\practitioners;
 
 class PractitionersController extends Controller
@@ -13,7 +14,7 @@ class PractitionersController extends Controller
      */
     public function index()
     {
-        //
+        return view('practitioners.index');
     }
 
     /**
@@ -35,7 +36,7 @@ class PractitionersController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(practitioners $practitioners)
+    public function show(LivewirePractitioners $practitioners)
     {
         //
     }
@@ -43,7 +44,7 @@ class PractitionersController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(practitioners $practitioners)
+    public function edit(LivewirePractitioners $practitioners)
     {
         //
     }
@@ -51,7 +52,7 @@ class PractitionersController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatepractitionersRequest $request, practitioners $practitioners)
+    public function update(UpdatepractitionersRequest $request, LivewirePractitioners $practitioners)
     {
         //
     }
@@ -59,7 +60,7 @@ class PractitionersController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(practitioners $practitioners)
+    public function destroy(LivewirePractitioners $practitioners)
     {
         //
     }

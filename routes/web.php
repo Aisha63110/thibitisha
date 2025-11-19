@@ -61,7 +61,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('statuses', StatusController::class);
     Route::resource('specialities', SpecialityController::class);
     Route::resource('subspecialities', SubSpecialityController::class);
-    Route::resource('institutions', InstitutionController::class);
+    Route::get('institutions', [InstitutionController::class, 'index'])->name('institutions.index');
     Route::resource('degrees', DegreeController::class);
     Route::resource('settings', SettingsController::class);
 

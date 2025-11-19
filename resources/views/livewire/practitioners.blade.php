@@ -69,17 +69,99 @@
         </div>
     </div>
 @endif
+   {{-- The form (Add/Edit Practitioner) --}}
+@if ($showForm)
+    <div class="card card-primary card-outline mb-4">
+        <div class="card-header">
+            <h5>{{ $isEditing ? 'Edit' : 'Add New' }} Practitioner</h5>
+        </div>
+        <div class="card-body">
+            <form wire:submit.prevent="{{ $isEditing ? 'update' : 'store' }}">
+                
+                <!-- Registration Number (readonly) -->
+                <div class="mb-3">
+                    <label class="form-label">Registration Number</label>
+                    <input type="text" 
+                           class="form-control" 
+                           wire:model="registration_number" 
+                           readonly>
+                </div>
+
+                <!-- Full Name -->
+                <div class="mb-3">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" 
+                           class="form-control @error('full_name') is-invalid @enderror" 
+                           wire:model="full_name" 
+                           placeholder="Enter full name">
+                    @error('full_name')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <!-- Photo Upload -->
+                <div class="mb-3">
+                    <label class="form-label">Photo</label>
+                    <input type="file" 
+                           class="form-control @error('profile_photo_url') is-invalid @enderror" 
+                           wire:model="profile_photo_url">
+                    @error('profile_photo_url')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <!-- Status Dropdown -->
+                <div class="mb-3">
+                    <label class="form-label">Status</label>
+                    <select class="form-select @error('status_id') is-invalid @enderror" 
+                            wire:model="status_id">
+                        <option value="">Select Status</option>
+                        @foreach ($statuses as $status)
+                            <option value="{{ $status->id }}">{{ $status->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('status_id')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        {{ $isEditing ? 'Update' : 'Create' }}
+                    </button>
+                    <button type="button" wire:click="cancel" class="btn btn-secondary">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+@endif
+
+
     
      {{-- Table --}}
     @if ($showView && ! $showForm)
     <div class="card card-warning card-outline mb-4">
         <div class="card-header">
             <h3>Practitioners List</h3>
+            
             <div class="card-tools">
-                <input wire:model.live.debounce.200ms="search" 
+                <button wire:click="add" class="btn btn-primary btn-sm">
+                   <i class="bi bi-plus-circle"></i> Add New Practitioner
+                 </button> 
+
+                 <div class = "d-inline-block me-2">
+                    <input wire:model.live.debounce.200ms="search" 
                        type="text" 
                        class="form-control" 
                        placeholder="Search Practitioners">
+                 
+                 </div> 
+                      
+              
+                       
             </div>
         </div>
 

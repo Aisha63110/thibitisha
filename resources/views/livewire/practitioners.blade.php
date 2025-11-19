@@ -114,7 +114,7 @@
                 <div class="mb-3">
                     <label class="form-label">Status</label>
                     <select class="form-select @error('status_id') is-invalid @enderror" 
-                            wire:model="status_id">
+                            wire:model.live="status_id">
                         <option value="">Select Status</option>
                         @foreach ($statuses as $status)
                             <option value="{{ $status->id }}">{{ $status->name }}</option>
@@ -124,6 +124,35 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
+                {{-- speciality --}}
+                <div class="mb-3">
+    <label class="form-label">Speciality</label>
+    <select class="form-select" wire:model.live="specialityId">
+        <option value="">Select Speciality</option>
+        @foreach ($specialities as $speciality)
+            <option value="{{ $speciality->id }}">{{ $speciality->name }}</option>
+        @endforeach
+    </select>
+</div>
+
+                {{-- sub speciality --}}
+           @if ($specialityId)
+    <div class="mb-3">
+        <label class="form-label">Sub Speciality</label>
+        <select wire:key="subSpeciality-{{ $specialityId }}" 
+                class="form-select" 
+                wire:model="subSpecialityId">
+            <option value="">Select Sub Speciality</option>
+            @if ($subSpecialities)
+                @foreach ($subSpecialities as $subSpeciality)
+                    <option value="{{ $subSpeciality->id }}">
+                        {{ $subSpeciality->name }}
+                    </option>
+                @endforeach
+            @endif
+        </select>
+    </div>
+@endif
 
                 <!-- Action Buttons -->
                 <div class="d-flex gap-2">

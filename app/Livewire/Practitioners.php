@@ -8,6 +8,7 @@ use App\Models\Practitioner;
 use App\Models\Status;
 use App\Models\Speciality;
 use App\Models\SubSpeciality;
+use App\Models\Degree;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,7 +22,7 @@ class Practitioners extends Component
     public $orderField = 'full_name';
     public $orderDirection = 'asc';
     public $id, $registration_number, $full_name;
-    public $profile_photo_url, $status, $speciality, $sub_speciality;
+    public $profile_photo_url, $status, $speciality, $sub_speciality, $statusId;
     public $contacts, $qualifications;
 
     public $status_id, $specialityId, $subSpecialityId;
@@ -37,6 +38,10 @@ public function render()
 {
     $searchString = '%' . $this->search . '%';
     $statuses = Status::all();
+    $specialities = Speciality::all();
+    $degrees = Degree::all();
+    $degrees = degree::all();
+
      $practitioners = Practitioner::query()
     ->where('full_name', 'like', $searchString)
     ->orWhereHas('status', function($q) use ($searchString) {
@@ -48,7 +53,7 @@ public function render()
     ->orderBy($this->orderField, $this->orderDirection)
     ->paginate(env('PAGINATION_COUNT', 10));
 
-    return view('livewire.practitioners', compact('practitioners', 'statuses'));
+    return view('livewire.practitioners', compact('practitioners', 'statuses','specialities','degrees','institutions'));
 }
     public function activate($id)
 {
@@ -88,7 +93,7 @@ public function viewOne($id)
     $this->profile_photo_url = $practitioner->profile_photo_url;
     $this->status = $practitioner->status ? $practitioner->status->name : '';
     $this->speciality = $practitioner->speciality ? $practitioner->speciality->name : '';
-    $this->sub_speciality = $practitioner->sub_speciality ? $practitioner->sub_speciality->name : '';
+    $this->sub_speciality = $practitioner->subspeciality ? $practitioner->sub_speciality->name : '';
     $this->contacts = $practitioner->contacts;
     $this->qualifications = $practitioner->qualifications;
     
@@ -176,7 +181,16 @@ public function store(){
     $this->showForm = false;
 
     session()->flash('success', 'Practitioner Created Successfully');
+
+
 }
+public function updatedSpecialityId()
+{
+    $this->subSpecialities = SubSpeciality::where('speciality_id', $this->specialityId)->get();
+    $this->subSpecialityId = null; // Reset sub-speciality selection
+}
+
+
 }
 
 

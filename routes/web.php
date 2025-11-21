@@ -6,12 +6,15 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\DegreeController;
 use App\Http\Controllers\PractitionersController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\SpecialityController;
 use App\Http\Controllers\SubSpecialityController;
 use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\QualificationController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\VerificationLogController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,5 +70,7 @@ Route::middleware('auth')->group(function () {
 
     // ✅ Logout route should be last
     Route::post('logout', [UserController::class, 'logout'])->name('logout');
+    Route::get ('dashboard',[DashboardController::class,'index'])->name('dashboard');
+    Route::resource('verifications', VerificationLogController::class);
 });
 

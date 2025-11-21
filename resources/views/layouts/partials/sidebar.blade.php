@@ -33,7 +33,7 @@
       >
         {{-- Dashboard --}}
         <li class="nav-item">
-          <a href="{{ URL::to('/') }}" class="nav-link {{ request()->is('/') ? 'active' : ""; }}">
+          <a href="{{ route('dashboard') }}" class="nav-link {{ request()->is('dashboard') ? 'active' : ""; }}">
             <i class="nav-icon bi bi-speedometer"></i>
             <p>Dashboard</p>
           </a>

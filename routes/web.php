@@ -70,4 +70,16 @@ Route::middleware('auth')->group(function () {
 
     // ✅ Logout route should be last
     Route::post('logout', [UserController::class, 'logout'])->name('logout');
+
+    // profile route
+    Route::get('user/profile', [UserController::class, 'profile'])->name('user.profile');
+
+    //generate a token
+    Route::post('user/generate-token', [UserController::class, 'generateToken'])->name('user.generate_token');
+
+    // revoke token
+    Route::post('user/revoke-token', [UserController::class, 'revokeToken'])->name('user.revoke_token');
+
+    //revoke all tokens
+    Route::post('user/revoke-all-tokens', [UserController::class, 'revokeAllTokens'])->name('user.revoke_all_tokens');
 });

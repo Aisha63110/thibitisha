@@ -125,11 +125,61 @@ class UserController extends Controller
     return redirect('/');
 }
 
+// profile 
+    public function profile()
+    {
+        $user = Auth::user();
+        // courtesty of laravel sanctum (HasApiTokens trait in User model)
+        $tokens = $user->tokens;
+        return view('users.profile', compact('user', 'tokens'));
+    }
 
+    public function generateToken(Request $request)
+{
+    $user = Auth::user();
+
+    $request->validate([
+        'token_name' => 'required|string|max:255',
+    ]);
+
+    $abilities = $request->input('abilities', []); // keep abilities separate
+
+    // create a token
+    $token = $user->createToken($request->input('token_name'), $abilities);
+
+    return redirect()->route('users.profile')
+        ->with('success', 'API Token generated successfully.')
+        ->with('token_value', $token->plainTextToken);
 }
 
-    
+public function revokeToken(Request $request, $tokenId)
+{
+    $user = Auth::user();
+
+    try {
+        $user->tokens()->where('id', $tokenId)->delete();
+        return redirect()->route('users.profile')
+            ->with('success', 'API Token revoked successfully.');
+    } catch (\Exception $e) {
+        return redirect()->route('users.profile')
+            ->with('error', 'Failed to revoke API Token.');
+    }
+}
+public function revokeAllTokens(Request $request)
+{
+    $user = Auth::user();
+
+    try {
+        $user->tokens()->delete();
+        return redirect()->route('users.profile')
+            ->with('success', 'All API Tokens revoked successfully.');
+    } catch (\Exception $e) {
+        return redirect()->route('users.profile')
+            ->with('error', 'Failed to revoke API Tokens.');
+    }
+
+} 
 
     
-
+}
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8ee5d03b1b86192d92de247df2622781",
+    "content-hash": "f0777f7eb3b361ddb0e321710414d0b5",
     "packages": [
         {
             "name": "akaunting/laravel-sortable",

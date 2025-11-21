@@ -206,4 +206,49 @@
         };
         var verificationSummaryChart = new ApexCharts(document.querySelector("#verification-chart"), verificationSummary);
         verificationSummaryChart.render();
+ 
+// specialist distribution summary (bar) - specialist-distribution-chart
+
+        var specialistDistribution = {
+            chart: {
+                type: "bar",
+                height: 468,
+                toolbar: {
+                    show: true
+                },
+
+            },
+            title: {
+                text: "Specialist Distribution",
+                align: "center"
+
+            },
+            dataLabels: {
+                enabled: true
+            },
+            series: [{
+                data: {!! json_encode(array_values($specialistDistributionByName)) !!}
+            }],
+            xaxis: {
+                categories: {!! json_encode(array_keys($specialistDistributionByName)) !!},
+                labels: {
+                    rotate: -90
+                }
+            },
+            // Make the chart responsive
+            responsive: [{
+                breakpoint: 480, // At 480px screen width or less
+                options: {
+                    chart: {
+                        width: 200 // Reduce chart width
+                    },
+                    legend: {
+                        position: 'bottom' // Ensure legend stays at the bottom
+                    }
+                }
+            }]
+        };
+        var specialistDistributionChart = new ApexCharts(document.querySelector("#specialist-distribution-chart"), specialistDistribution);
+        specialistDistributionChart.render();
+              
       

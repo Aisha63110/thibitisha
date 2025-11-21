@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Practitioner;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -56,7 +57,34 @@ class DashboardController extends Controller
             return [
                 $item->month => $item->count];
         })->toArray();    
-        dd($verificationSummary);    
-        return view('dashboard.index', compact('generalPractitioners', 'specialistPractitioners', 'successfulVerifications', 'failedVerifications', 'practitionerDistributionByStatus', 'verificationSummary'));
+        
+        $specialistDistribution = Practitioner::whereHas('speciality', function ($query) {
+            $query->where('name', '!=', 'UNKNOWN');
+        })
+        ->whereHas('status', function ($query) {
+            $query->where('name', 'ACTIVE');
+        })
+        ->selectRaw('speciality_id, COUNT(*) as count')
+        ->groupBy('speciality_id')
+        ->with('speciality')
+        ->orderBy('count','desc')
+        ->get();
+
+        $specialistDistributionByName = $specialistDistribution->mapWithKeys(function ($item) {
+            return [$item->speciality->name => $item->count];
+        })->toArray();
+
+       
+        // ['OBGYN' => 23 , 'PDTRICIAN' => 23 ]
+
+        return view('dashboard.index', compact(
+            'generalPractitioners',
+            'specialistPractitioners',
+            'successfulVerifications',
+            'failedVerifications',
+            'practitionerDistributionByStatus',
+            'verificationSummary'
+            ,'specialistDistributionByName'
+        ));
     }
 }

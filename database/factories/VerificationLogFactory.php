@@ -25,7 +25,7 @@ class VerificationLogFactory extends Factory
         'ip_address' => $this->faker->ipv4(),
         'user_agent' => $this->faker->userAgent(),
         'is_valid' => $this->faker->boolean(),
-        'verified_at' => $this->faker->dateTimeBetween(),
+        'verified_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
     ];
 }
 

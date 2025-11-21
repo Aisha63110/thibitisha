@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -44,6 +45,18 @@ class DashboardController extends Controller
         })->toArray();
 
         dd($practitionerDistributionByStatus);
-        return view('dashboard.index', compact('generalPractitioners', 'specialistPractitioners', 'successfulVerifications', 'failedVerifications', 'practitionerDistributionByStatus'));
+
+        $verificationSummary = \App\Models\VerificationLog::selectRaw("DATE_FORMAT(verified_at, '%b-%Y') as month, is_valid, COUNT(*) as count")
+            ->whereBetween('verified_at','>=',Carbon::now()->subYear(6))
+            ->groupBy('month')
+            ->orderBy('count','desc')
+            ->get();
+
+        $verificationSummary = $verificationSummary->mapWithKeys(function ($item) {
+            return [
+                $item->month => $item->count];
+        })->toArray();    
+        dd($verificationSummary);    
+        return view('dashboard.index', compact('generalPractitioners', 'specialistPractitioners', 'successfulVerifications', 'failedVerifications', 'practitionerDistributionByStatus', 'verificationSummary'));
     }
 }

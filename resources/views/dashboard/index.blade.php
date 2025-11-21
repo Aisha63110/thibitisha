@@ -109,10 +109,12 @@
 {{-- Page-specific Scripts --}}
 @push('scripts')
       <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-@endpush
+
 
 //practitioner distribution by status (pie chart)
-var practitionerDistribution = {
+@push('scripts')
+    <script>
+ var practitionerDistribution = {
             series: {!! json_encode(array_values($practitionerDistributionByStatus)) !!},
             chart: {
                 type: 'pie',
@@ -204,3 +206,4 @@ var practitionerDistribution = {
         };
         var verificationSummaryChart = new ApexCharts(document.querySelector("#verification-chart"), verificationSummary);
         verificationSummaryChart.render();
+      

@@ -30,7 +30,20 @@ class DashboardController extends Controller
         $successfulVerifications = \App\Models\VerificationLog::where('is_valid', true)->count();
         // failed verfications count
         $failedVerifications = \App\Models\VerificationLog::where('is_valid', false)->count();
+        // practitioner distribution by status
+        $practitionerDistribution = \App\Models\Practitioner::selectRaw('status_id, COUNT(*) as count')
+            ->groupBy('status_id')
+            ->with('status')
+            ->get();
+        dd($practitionerDistribution);
+        /**
+         * ['ACTIVE' => 12, 'INACTIVE' => 2, ]
+         */
+        $practitionerDistributionByStatus = $practitionerDistributionByStatus->mapWithKeys(function ($item) {
+            return [$item->status->name => $item->count];
+        })->toArray();
 
-        return view('dashboard.index', compact('generalPractitioners', 'specialistPractitioners', 'successfulVerifications', 'failedVerifications'));
+        dd($practitionerDistributionByStatus);
+        return view('dashboard.index', compact('generalPractitioners', 'specialistPractitioners', 'successfulVerifications', 'failedVerifications', 'practitionerDistributionByStatus'));
     }
 }

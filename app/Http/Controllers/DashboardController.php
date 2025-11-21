@@ -25,6 +25,12 @@ class DashboardController extends Controller
         ->whereHas('status', function ($query) {
             $query->where('name', 'ACTIVE');
         })->count();
-        return view('dashboard.index', compact('generalPractitioners', 'specialistPractitioners'));
+
+        // valid verifications count
+        $successfulVerifications = \App\Models\VerificationLog::where('is_valid', true)->count();
+        // failed verfications count
+        $failedVerifications = \App\Models\VerificationLog::where('is_valid', false)->count();
+
+        return view('dashboard.index', compact('generalPractitioners', 'specialistPractitioners', 'successfulVerifications', 'failedVerifications'));
     }
 }

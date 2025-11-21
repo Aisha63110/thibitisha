@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Storeverfication_logsRequest;
-use App\Http\Requests\Updateverfication_logsRequest;
-use App\Models\verfication_logs;
+use Illuminate\Http\Request;
 
-class VerficationLogsController extends Controller
+class VerificationLogsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +25,7 @@ class VerficationLogsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Storeverfication_logsRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -35,7 +33,7 @@ class VerficationLogsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(verfication_logs $verfication_logs)
+    public function show(string $id)
     {
         //
     }
@@ -43,7 +41,7 @@ class VerficationLogsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(verfication_logs $verfication_logs)
+    public function edit(string $id)
     {
         //
     }
@@ -51,7 +49,7 @@ class VerficationLogsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Updateverfication_logsRequest $request, verfication_logs $verfication_logs)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -59,7 +57,7 @@ class VerficationLogsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(verfication_logs $verfication_logs)
+    public function destroy(string $id)
     {
         //
     }

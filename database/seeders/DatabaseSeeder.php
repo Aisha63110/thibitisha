@@ -26,6 +26,8 @@ class DatabaseSeeder extends Seeder
        Schema::disableForeignKeyConstraints();
        $this ->call([
               RoleSeeder::class,
+              VerificationLogSeeder::class,
+              PractitionersSeeder::class,
        ]);
 
         // call them individual seeders in a specific order

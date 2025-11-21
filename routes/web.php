@@ -13,8 +13,7 @@ use App\Http\Controllers\SubSpecialityController;
 use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\QualificationController;
 use App\Http\Controllers\SettingsController;
-use App\Http\Controllers\VerificationLogController;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Http\Controllers\VerificationLogsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,10 +48,8 @@ Route::post('login', [UserController::class, 'authenticate'])->name('login.submi
 */
 Route::middleware('auth')->group(function () {
 
-    // Admin dashboard
-    Route::get('/mkubwa', function () {
-        return view('admin.dashboard');
-    })->name('dashboard');
+    // Admin dashboard (only one route, no duplicates)
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Resource routes
     Route::resource('roles', RoleController::class);
@@ -64,13 +61,13 @@ Route::middleware('auth')->group(function () {
     Route::resource('statuses', StatusController::class);
     Route::resource('specialities', SpecialityController::class);
     Route::resource('subspecialities', SubSpecialityController::class);
-    Route::get('institutions', [InstitutionController::class, 'index'])->name('institutions.index');
+    Route::resource('institutions', InstitutionController::class);
     Route::resource('degrees', DegreeController::class);
     Route::resource('settings', SettingsController::class);
 
+    // Verifications (logs)
+    Route::resource('verifications', VerificationLogsController::class);
+
     // ✅ Logout route should be last
     Route::post('logout', [UserController::class, 'logout'])->name('logout');
-    Route::get ('dashboard',[DashboardController::class,'index'])->name('dashboard');
-    Route::resource('verifications', VerificationLogController::class);
 });
-
